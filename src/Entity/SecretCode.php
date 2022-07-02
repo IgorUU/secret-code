@@ -7,6 +7,7 @@ use Drupal\Core\Entity\EntityChangedTrait;
 use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\Core\Entity\EntityTypeInterface;
 use Drupal\Core\Field\BaseFieldDefinition;
+use Drupal\field_permissions\Plugin\FieldPermissionType\Base;
 use Drupal\secret_code\Plugin\Field\FieldWidget\SecretCodeComboFieldItemList;
 use Drupal\secret_code\SecretCodeInterface;
 use Drupal\user\EntityOwnerTrait;
@@ -34,7 +35,7 @@ use Drupal\user\EntityOwnerTrait;
  *       "delete" = "Drupal\Core\Entity\ContentEntityDeleteForm",
  *     },
  *     "route_provider" = {
- *       "html" = "Drupal\Core\Entity\Routing\AdminHtmlRouteProvider",
+ *       "html" = "Drupal\secret_code\Routing\ScHtmlRouteProvider",
  *     }
  *   },
  *   base_table = "secret_code",
@@ -51,6 +52,7 @@ use Drupal\user\EntityOwnerTrait;
  *     "canonical" = "/secret-code/{secret_code}",
  *     "edit-form" = "/secret-code/{secret_code}/edit",
  *     "delete-form" = "/secret-code/{secret_code}/delete",
+ *     "confirm" = "/secret-code/{secret_code}/confirm/{action}"
  *   },
  *   field_ui_base_route = "entity.secret_code.settings",
  * )
@@ -116,6 +118,14 @@ class SecretCode extends ContentEntityBase implements SecretCodeInterface {
       ])
       ->setDisplayConfigurable('view', TRUE);
 
+    $fields['state'] = BaseFieldDefinition::create('list_string')
+      ->setLabel(t('State'))
+      ->setInitialValue('pending')
+      ->setSetting('allowed_values', [
+        'pending' => t('Pending'),
+        'confirmed' => t('Confirmed'),
+        'rejected' => t('Rejected')
+      ]);
     $fields['description'] = BaseFieldDefinition::create('text_long')
       ->setLabel(t('Description'))
       ->setDisplayOptions('form', [

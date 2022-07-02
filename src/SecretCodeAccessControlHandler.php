@@ -35,6 +35,9 @@ class SecretCodeAccessControlHandler extends EntityAccessControlHandler {
           'OR',
         );
 
+      case 'approve':
+        return AccessResult::allowedIfHasPermission($account, 'approve secret code');
+
       default:
         // No opinion.
         return AccessResult::neutral();
