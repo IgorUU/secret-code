@@ -1,0 +1,13 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - secret_code
+id: approver
+label: Approver
+weight: 4
+is_admin: null
+permissions:
+  - 'approve secret code'
+  - 'create secret code'
+  - 'view secret code'
