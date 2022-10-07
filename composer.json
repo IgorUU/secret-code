@@ -1,0 +1,13 @@
+{
+  "name": "drupal-modules/secret-code",
+  "type": "drupal-custom-module",
+  "description": "Secret codes",
+  "authors": [
+    {
+      "name": "Igor Ušumović",
+      "role": "Developer"
+    }
+  ],
+  "require": {},
+  "minimum-stability": "dev"
+}
